@@ -17,6 +17,10 @@ out
 build
 .gradle
 
+# git
+.gitattributes
+.github
+
 # other
 eclipse
 run
