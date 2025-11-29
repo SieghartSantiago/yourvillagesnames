@@ -1,0 +1,13 @@
+{
+  "itemGroup.yourvillagesnames": "Example Mod Tab",
+  "block.yourvillagesnames.example_block": "Example Block",
+  "item.yourvillagesnames.example_item": "Example Item",
+
+  "yourvillagesnames.configuration.title": "Your Villages Names Configs",
+  "yourvillagesnames.configuration.section.yourvillagesnames.common.toml": "Your Villages Names Configs",
+  "yourvillagesnames.configuration.section.yourvillagesnames.common.toml.title": "Your Villages Names Configs",
+  "yourvillagesnames.configuration.items": "Item List",
+  "yourvillagesnames.configuration.logDirtBlock": "Log Dirt Block",
+  "yourvillagesnames.configuration.magicNumberIntroduction": "Magic Number Text",
+  "yourvillagesnames.configuration.magicNumber": "Magic Number"
+}
