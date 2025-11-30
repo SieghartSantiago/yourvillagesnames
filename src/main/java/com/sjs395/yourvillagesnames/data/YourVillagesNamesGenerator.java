@@ -31,8 +31,6 @@ public class YourVillagesNamesGenerator {
 							names.add(line);
 					}
 				}
-			} else {
-				System.out.println("No existe: " + file);
 			}
 
 		} catch (Exception ex) {
@@ -40,7 +38,6 @@ public class YourVillagesNamesGenerator {
 		}
 
 		if (names.isEmpty()) {
-			System.out.println("Cargando por defecto");
 			names.add("Valle Verde");
 			names.add("Aldea Rocablanca");
 			names.add("Puerta del Bosque");

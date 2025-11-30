@@ -20,18 +20,21 @@ public class ChatManager {
 	}
 
 	public static void writeStringCopy(String txtWhite, String txtGreen, CommandContext<CommandSourceStack> ctx) {
-		ctx.getSource().sendSuccess(() -> Component.literal(txtWhite)
-				.append(Component.literal(txtGreen).withStyle(s -> s.withColor(0x00FF00)
-						.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, txtGreen)).withHoverEvent(
-								new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to copy"))))),
-				false);
+		ctx.getSource()
+				.sendSuccess(() -> Component.literal(txtWhite)
+						.append(Component.literal(txtGreen)
+								.withStyle(s -> s.withColor(0x00FF00)
+										.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, txtGreen))
+										.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+												Component.translatable("gui.yourvillagesnames.copy_text"))))),
+						false);
 	}
 
 	public static void writeString(String txtWhite, String txtOrange, CommandContext<CommandSourceStack> ctx) {
 		ctx.getSource().sendSuccess(() -> Component.literal(txtWhite)
 				.append(Component.literal(txtOrange).withStyle(s -> s.withColor(0xFFA500))), false);
 	}
-	
+
 	public static void writeError(String msg, CommandContext<CommandSourceStack> ctx) {
 		ctx.getSource().sendFailure(Component.literal(msg).withStyle(ChatFormatting.RED));
 	}

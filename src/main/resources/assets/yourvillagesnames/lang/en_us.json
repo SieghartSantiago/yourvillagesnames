@@ -1,5 +1,5 @@
 {
-  "itemGroup.yourvillagesnames": "Example Mod Tab",
+  "gui.yourvillagesnames.copy_text": "Click to copy",
   "block.yourvillagesnames.example_block": "Example Block",
   "item.yourvillagesnames.example_item": "Example Item",
 

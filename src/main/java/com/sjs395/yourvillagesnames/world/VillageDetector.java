@@ -77,7 +77,7 @@ public class VillageDetector {
 
 		double bestVillageDistance = -1;
 		BlockPos bestVillagePos = null;
-		
+
 		String[] VILLAGES_ID = ModConfigHolder.VILLAGE_IDS.get().toArray(String[]::new);
 
 		for (int i = 0; i < VILLAGES_ID.length; i++) {
@@ -112,24 +112,24 @@ public class VillageDetector {
 		return bestVillagePos;
 
 	}
-	
+
 	public static List<String> splitText(String text, int maxLen) {
-	    List<String> lines = new ArrayList<>();
-	    StringBuilder current = new StringBuilder();
+		List<String> lines = new ArrayList<>();
+		StringBuilder current = new StringBuilder();
 
-	    for (String word : text.split(" ")) {
-	        if (current.length() + word.length() + 1 > maxLen) {
-	            lines.add(current.toString().trim());
-	            current = new StringBuilder();
-	        }
-	        current.append(word).append(" ");
-	    }
+		for (String word : text.split(" ")) {
+			if (current.length() + word.length() + 1 > maxLen) {
+				lines.add(current.toString().trim());
+				current = new StringBuilder();
+			}
+			current.append(word).append(" ");
+		}
 
-	    if (!current.isEmpty()) {
-	        lines.add(current.toString().trim());
-	    }
+		if (!current.isEmpty()) {
+			lines.add(current.toString().trim());
+		}
 
-	    return lines;
+		return lines;
 	}
 
 	public static void placeVillageSign(ServerLevel level, BlockPos centerPos, String villageName) {
@@ -149,8 +149,8 @@ public class VillageDetector {
 			front = front.setMessage(0, Component.literal("Welcome to"));
 
 			for (int i = 0; i < 3; i++) {
-			    String line = (i < result.size()) ? result.get(i) : "";
-			    front = front.setMessage(i + 1, Component.literal(line));
+				String line = (i < result.size()) ? result.get(i) : "";
+				front = front.setMessage(i + 1, Component.literal(line));
 			}
 
 			sign.setText(front, false);
@@ -185,7 +185,6 @@ public class VillageDetector {
 			if (isInVillage) {
 				String id = villagePos.getX() + "_" + villagePos.getZ();
 
-				System.out.println("En la aldea: " + id);
 				if (!villageNames.containsKey(id)) {
 					String newName = YourVillagesNamesGenerator.getRandomName();
 					villageNames.put(id, newName);
