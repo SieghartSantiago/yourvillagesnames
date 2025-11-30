@@ -1,7 +1,6 @@
 package com.sjs395.yourvillagesnames.config;
 
 import java.util.List;
-
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 

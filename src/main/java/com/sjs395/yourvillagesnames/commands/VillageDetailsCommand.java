@@ -2,7 +2,6 @@ package com.sjs395.yourvillagesnames.commands;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -13,7 +12,6 @@ import com.sjs395.yourvillagesnames.chat.ChatManager;
 import com.sjs395.yourvillagesnames.config.ModConfigHolder;
 import com.sjs395.yourvillagesnames.data.FileManager;
 import com.sjs395.yourvillagesnames.world.VillageDetector;
-
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
@@ -26,28 +24,22 @@ public class VillageDetailsCommand {
 
 		dispatcher.register(Commands.literal("villagedetails").requires(src -> src.hasPermission(0))
 
-				// ──────────────── SUBCOMANDO you_in ────────────────
 				.then(Commands.literal("you_in").executes(ctx -> youIn(ctx)))
 
-				// ──────────────── SUBCOMANDO near ────────────────
 				.then(Commands.literal("near").executes(ctx -> near(ctx)))
 
-				// ──────────────── SUBCOMANDO all ────────────────
 				.then(Commands.literal("all").executes(ctx -> all(ctx)))
 
-				// ──────────────── SUBCOMANDO id <id> ────────────────
 				.then(Commands.literal("id").then(Commands.argument("villageID", StringArgumentType.string())
 						.suggests((ctx, builder) -> suggestNearestVillage(ctx, builder)).executes(ctx -> id(ctx)))));
 	}
 
-	// ============================================================
-	// SUBCOMANDO: you_in
-	// ============================================================
 	private static int youIn(CommandContext<CommandSourceStack> ctx) {
 		ServerPlayer player = ctx.getSource().getPlayer();
 		ServerLevel level = ctx.getSource().getServer().overworld();
 
-		BlockPos village = VillageDetector.findNearestVillage(level, player.blockPosition(), ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
+		BlockPos village = VillageDetector.findNearestVillage(level, player.blockPosition(),
+				ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
 
 		if (village == null) {
 			ChatManager.writeError("ERROR: You are not in a village", ctx);
@@ -63,9 +55,6 @@ public class VillageDetailsCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	// ============================================================
-	// SUBCOMANDO: near
-	// ============================================================
 	private static int near(CommandContext<CommandSourceStack> ctx) {
 		ServerPlayer player = ctx.getSource().getPlayer();
 		ServerLevel level = ctx.getSource().getServer().overworld();
@@ -85,9 +74,6 @@ public class VillageDetailsCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	// ============================================================
-	// SUBCOMANDO: all
-	// ============================================================
 	private static int all(CommandContext<CommandSourceStack> ctx) {
 		ServerLevel level = ctx.getSource().getServer().overworld();
 		Map<String, String> villages = FileManager.loadAllVillages(level);
@@ -107,9 +93,6 @@ public class VillageDetailsCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	// ============================================================
-	// SUBCOMANDO: id <id>
-	// ============================================================
 	private static int id(CommandContext<CommandSourceStack> ctx) {
 		ServerLevel level = ctx.getSource().getServer().overworld();
 		String id = StringArgumentType.getString(ctx, "villageID");
@@ -127,9 +110,6 @@ public class VillageDetailsCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	// ============================================================
-	// AUTOCOMPLETADO: ID de la aldea más cercana
-	// ============================================================
 	private static CompletableFuture<Suggestions> suggestNearestVillage(CommandContext<CommandSourceStack> ctx,
 			SuggestionsBuilder builder) {
 
@@ -142,14 +122,12 @@ public class VillageDetailsCommand {
 			if (nearestId != null) {
 				String typed = builder.getRemaining().toLowerCase();
 
-				// Solo sugerir si lo que escribe coincide con el inicio
 				if (nearestId.toLowerCase().startsWith(typed)) {
 					builder.suggest(nearestId);
 				}
 			}
 
 		} catch (Exception e) {
-			// ignorar si no es un jugador
 		}
 
 		return builder.buildFuture();

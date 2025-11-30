@@ -4,10 +4,8 @@ import com.sjs395.yourvillagesnames.chat.ChatManager;
 import com.sjs395.yourvillagesnames.config.ModConfigHolder;
 import com.sjs395.yourvillagesnames.data.FileManager;
 import com.sjs395.yourvillagesnames.world.VillageDetector;
-
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;

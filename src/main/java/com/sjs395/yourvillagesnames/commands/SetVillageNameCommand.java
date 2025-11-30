@@ -1,7 +1,6 @@
 package com.sjs395.yourvillagesnames.commands;
 
 import java.util.concurrent.CompletableFuture;
-
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -12,7 +11,6 @@ import com.sjs395.yourvillagesnames.chat.ChatManager;
 import com.sjs395.yourvillagesnames.config.ModConfigHolder;
 import com.sjs395.yourvillagesnames.data.FileManager;
 import com.sjs395.yourvillagesnames.world.VillageDetector;
-
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
@@ -23,16 +21,13 @@ public class SetVillageNameCommand {
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("setvillagename").requires(src -> src.hasPermission(0))
 
-				// you_in <villageName...>
 				.then(Commands.literal("you_in")
 						.then(Commands.argument("villageName", StringArgumentType.greedyString())
 								.executes(ctx -> youIn(ctx))))
 
-				// near <villageName...>
 				.then(Commands.literal("near").then(
 						Commands.argument("villageName", StringArgumentType.greedyString()).executes(ctx -> near(ctx))))
 
-				// id <villageID> <villageName...>
 				.then(Commands.literal("id")
 						.then(Commands.argument("villageID", StringArgumentType.string())
 								.suggests((ctx, builder) -> suggestNearestVillage(ctx, builder))
@@ -46,7 +41,8 @@ public class SetVillageNameCommand {
 
 		String newName = StringArgumentType.getString(ctx, "villageName");
 
-		BlockPos village = VillageDetector.findNearestVillage(level, player.blockPosition(), ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
+		BlockPos village = VillageDetector.findNearestVillage(level, player.blockPosition(),
+				ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
 
 		if (village == null) {
 			ChatManager.writeError("ERROR: You are not in a village", ctx);
@@ -129,14 +125,12 @@ public class SetVillageNameCommand {
 			if (nearestId != null) {
 				String typed = builder.getRemaining().toLowerCase();
 
-				// Solo sugerir si lo que escribe coincide con el inicio
 				if (nearestId.toLowerCase().startsWith(typed)) {
 					builder.suggest(nearestId);
 				}
 			}
 
 		} catch (Exception e) {
-			// ignorar si no es un jugador
 		}
 
 		return builder.buildFuture();

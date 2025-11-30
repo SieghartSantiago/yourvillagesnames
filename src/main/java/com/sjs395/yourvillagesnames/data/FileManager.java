@@ -8,11 +8,9 @@ import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-
 import com.google.common.io.Files;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -23,7 +21,6 @@ public class FileManager {
 
 	public static File getSaveFile(ServerLevel level) {
 
-		// Carpeta del mundo
 		File worldDir = level.getServer().getWorldPath(LevelResource.PLAYER_DATA_DIR).resolve("yourvillagenames")
 				.toFile();
 
@@ -54,20 +51,17 @@ public class FileManager {
 				return 1;
 			}
 
-			// Verificar si existe el ID
 			if (!villages.containsKey(id)) {
-				return 1; // ID no existe
+				return 1;
 			}
 
-			// Cambiar el nombre
 			villages.put(id, newName);
 
-			// Guardar el JSON actualizado
 			try (Writer writer = Files.newWriter(villagesFile, StandardCharsets.UTF_8)) {
 				gson.toJson(villages, writer);
 			}
 
-			return 2; // Exito
+			return 2;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -172,7 +166,6 @@ public class FileManager {
 				return Map.of();
 			}
 
-			// Leer JSON → Map<String, String>
 			FileReader reader = new FileReader(f);
 			java.lang.reflect.Type type = new com.google.common.reflect.TypeToken<Map<String, String>>() {
 				private static final long serialVersionUID = 1L;
@@ -182,14 +175,14 @@ public class FileManager {
 			reader.close();
 
 			if (map == null) {
-				return Map.of(); // En caso de JSON vacío
+				return Map.of();
 			}
 
 			return map;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Map.of(); // Fallo → mapa vacío
+			return Map.of();
 		}
 	}
 

@@ -9,7 +9,6 @@ import com.sjs395.yourvillagesnames.commands.CheckVillageCommand;
 import com.sjs395.yourvillagesnames.commands.SetVillageNameCommand;
 import com.sjs395.yourvillagesnames.commands.VillageDetailsCommand;
 import com.sjs395.yourvillagesnames.config.ModConfigHolder;
-//import com.sjs395.yourvillagesnames.config.ModConfig;
 import com.sjs395.yourvillagesnames.data.YourVillagesNamesGenerator;
 
 import net.neoforged.api.distmarker.Dist;
@@ -30,14 +29,11 @@ public class YourVillagesNames {
 
     public YourVillagesNames(ModContainer container) {
 
-        // ESTE es el evento correcto para los lifecycle events
         IEventBus modEventBus = container.getEventBus();
 
-        // Registrar los eventos del ciclo de vida del mod
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(ModEvents::register);
 
-        // Registrar eventos de juego
         NeoForge.EVENT_BUS.register(ModEvents.class);
         NeoForge.EVENT_BUS.register(VillageDetector.class);
         NeoForge.EVENT_BUS.register(this);

@@ -15,8 +15,8 @@ public class VillageOverlayRenderer {
 	private static long fadeOut = 0;
 
 	// POSICIONES
-	private static final float POS_INICIAL = -40f; // Fuera de pantalla
-	private static final float POS_FINAL_PERCENT = 4f; // % desde arriba
+	private static final float POS_INICIAL = -40f;
+	private static final float POS_FINAL_PERCENT = 4f;
 
 	private static long startTime = 0;
 	private static boolean active = false;

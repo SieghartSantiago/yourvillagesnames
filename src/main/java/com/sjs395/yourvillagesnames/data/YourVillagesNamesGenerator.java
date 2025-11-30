@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import java.nio.file.Path;
 import java.nio.file.Files;
 
@@ -18,7 +17,6 @@ public class YourVillagesNamesGenerator {
 		try {
 			Path configDir = FMLPaths.CONFIGDIR.get();
 
-			// Carpeta para tu mod
 			Path modFolder = configDir.resolve("yourvillagesnames");
 			Files.createDirectories(modFolder);
 
@@ -41,7 +39,6 @@ public class YourVillagesNamesGenerator {
 			ex.printStackTrace();
 		}
 
-		// Si no cargó nada, usar valores por defecto
 		if (names.isEmpty()) {
 			System.out.println("Cargando por defecto");
 			names.add("Valle Verde");
