@@ -14,7 +14,6 @@ public class VillageOverlayRenderer {
 	private static long stay = 0;
 	private static long fadeOut = 0;
 
-	// POSICIONES
 	private static final float POS_INICIAL = -40f;
 	private static final float POS_FINAL_PERCENT = 4f;
 
@@ -48,7 +47,6 @@ public class VillageOverlayRenderer {
 		renderText(event.getGuiGraphics(), progress);
 	}
 
-	// PROGRESO SUAVE 0 → 1
 	private static float computeProgress(long elapsed) {
 
 		if (elapsed < fadeIn) {
@@ -64,7 +62,6 @@ public class VillageOverlayRenderer {
 		}
 	}
 
-	// EASING ---------------------------------------
 	private static float easeOutCubic(float x) {
 		return 1f - (float) Math.pow(1f - x, 3);
 	}
@@ -73,7 +70,6 @@ public class VillageOverlayRenderer {
 		return (float) Math.pow(x, 3);
 	}
 
-	// RENDER ---------------------------------------
 	private static void renderText(GuiGraphics gui, float progress) {
 		Minecraft mc = Minecraft.getInstance();
 		int width = mc.getWindow().getGuiScaledWidth();
@@ -81,7 +77,6 @@ public class VillageOverlayRenderer {
 
 		float posFinalPx = height * (POS_FINAL_PERCENT / 100f);
 
-		// ⬇️ Interpolación real de píxeles desde -40 hasta posFinalPx
 		float y = lerp(POS_INICIAL, posFinalPx, progress);
 
 		int yTitle = (int) y;

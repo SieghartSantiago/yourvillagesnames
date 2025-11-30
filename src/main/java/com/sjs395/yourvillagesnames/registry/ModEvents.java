@@ -14,7 +14,6 @@ public class ModEvents {
 
 	@SubscribeEvent
 	public static void onServerStarting(ServerStartingEvent event) {
-		// Forzar carga de almacenamiento en el overworld
 		try {
 			event.getServer().overworld();
 		} catch (Exception ignored) {

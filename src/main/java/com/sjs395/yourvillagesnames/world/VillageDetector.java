@@ -72,10 +72,7 @@ public class VillageDetector {
 		}
 	}
 
-	/** --- Detecta la aldea más cercana usando POI MEETING --- */
 	public static BlockPos findNearestVillage(ServerLevel level, BlockPos origin, int radius) {
-
-		// Obtener el registro de estructuras
 		var structureRegistry = level.registryAccess().registryOrThrow(Registries.STRUCTURE);
 
 		double bestVillageDistance = -1;
@@ -84,23 +81,18 @@ public class VillageDetector {
 		String[] VILLAGES_ID = ModConfigHolder.VILLAGE_IDS.get().toArray(String[]::new);
 
 		for (int i = 0; i < VILLAGES_ID.length; i++) {
-			// Crear la clave de la estructura "minecraft:village"
 			var villageKey = ResourceKey.create(Registries.STRUCTURE, ResourceLocation.parse(VILLAGES_ID[i]));
 
-			// Buscar el Holder<Structure>
 			var optVillageHolder = structureRegistry.getHolder(villageKey);
 			if (optVillageHolder.isEmpty()) {
-				return null; // no existe la estructura
+				return null;
 			}
 
-			// Crear HolderSet de 1 estructura
 			HolderSet<Structure> villageSet = HolderSet.direct(optVillageHolder.get());
 
-			// Llamar al buscador de estructuras del mundo
 			Pair<BlockPos, Holder<Structure>> result = level.getChunkSource().getGenerator()
 					.findNearestMapStructure(level, villageSet, origin, radius, false);
 
-			// Si no encontró nada
 			if (result == null)
 				continue;
 
@@ -141,22 +133,17 @@ public class VillageDetector {
 	}
 
 	public static void placeVillageSign(ServerLevel level, BlockPos centerPos, String villageName) {
-		// Queremos poner el cartel un bloque encima del centro
 		BlockPos signPos = centerPos.above();
 		BlockPos supportPos = centerPos;
 
 		level.setBlock(supportPos, Blocks.OAK_FENCE.defaultBlockState(), 3);
-		// Colocar el bloque cartel
 		level.setBlock(signPos, Blocks.OAK_SIGN.defaultBlockState(), 3);
 
-		// Obtener el BlockEntity del cartel
 		BlockEntity be = level.getBlockEntity(signPos);
 		if (be instanceof SignBlockEntity sign) {
 
-			// 1. Obtener el texto frontal actual
 			SignText front = sign.getFrontText();
 
-			// 2. Modificar líneas (0 a 3)
 			List<String> result = splitText(villageName, 15);
 
 			front = front.setMessage(0, Component.literal("Welcome to"));
@@ -166,21 +153,13 @@ public class VillageDetector {
 			    front = front.setMessage(i + 1, Component.literal(line));
 			}
 
-			// 3. Aplicar cambios AL FRENTE
-			sign.setText(front, false); // false = front side
+			sign.setText(front, false);
 
-			// (opcional) modificar el texto trasero
-			// SignText back = sign.getBackText();
-			// back = back.setMessage(0, Component.literal("Disfruta tu estadia"));
-			// sign.setText(back, true); // true = back side
-
-			// 4. Avisar al servidor/cliente
 			sign.setChanged();
 			level.sendBlockUpdated(signPos, sign.getBlockState(), sign.getBlockState(), 3);
 		}
 	}
 
-	/** --- Evento Tick del Servidor: se ejecuta cada tick --- */
 	@SubscribeEvent
 	public static void onServerTick(net.neoforged.neoforge.event.tick.ServerTickEvent.Post event) {
 
@@ -194,7 +173,6 @@ public class VillageDetector {
 
 		load(level);
 
-		// Iterar todos los jugadores conectados
 		for (ServerPlayer player : server.getPlayerList().getPlayers()) {
 
 			BlockPos playerPos = player.blockPosition();
@@ -205,11 +183,9 @@ public class VillageDetector {
 			boolean wasInVillage = playerInVillage.getOrDefault(uuid, false);
 
 			if (isInVillage) {
-				// ID único basado en la posición del meeting point
 				String id = villagePos.getX() + "_" + villagePos.getZ();
 
 				System.out.println("En la aldea: " + id);
-				// Si la aldea no tiene nombre aún → generarlo
 				if (!villageNames.containsKey(id)) {
 					String newName = YourVillagesNamesGenerator.getRandomName();
 					villageNames.put(id, newName);
@@ -217,17 +193,13 @@ public class VillageDetector {
 					placeVillageSign(level, villagePos, newName);
 				}
 
-				// ENTRANDO
 				if (!wasInVillage || !id.equals(lastVillageId.get(uuid))) {
 					sendTitle(player, true, villageNames.get(id), 500, 2000, 500);
 				}
 
-				// Guardar cuál aldea es la actual
 				lastVillageId.put(uuid, id);
 
 			} else {
-
-				// SALIENDO
 				if (wasInVillage) {
 					String id = lastVillageId.get(uuid);
 					if (id != null && villageNames.containsKey(id)) {
@@ -237,8 +209,6 @@ public class VillageDetector {
 					}
 				}
 			}
-
-			// Guardar estado actual
 			playerInVillage.put(uuid, isInVillage);
 		}
 
