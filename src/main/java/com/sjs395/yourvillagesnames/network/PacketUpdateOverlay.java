@@ -1,5 +1,6 @@
 package com.sjs395.yourvillagesnames.network;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -34,7 +35,10 @@ public class PacketUpdateOverlay {
 
 	public class ClientPayloadHandler {
 		public static void handleDataOnMain(final NameDisplayData data, final IPayloadContext context) {
-			VillageOverlayRenderer.showOverlay(data.entering ? "Entrando a" : "Saliendo de", data.name, data.fadeIn, data.stay, data.fadeOut);
+			VillageOverlayRenderer.showOverlay(
+					data.entering ? Component.translatable("message.yourvillagesnames.entering").getString()
+							: Component.translatable("message.yourvillagesnames.leaving").getString(),
+					data.name, data.fadeIn, data.stay, data.fadeOut);
 		}
 	}
 

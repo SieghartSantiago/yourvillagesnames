@@ -9,6 +9,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -31,10 +32,10 @@ public class CheckVillageCommand {
 			if (isInVillage) {
 				String id = villagePos.getX() + "_" + villagePos.getZ();
 
-				ChatManager.writeString("You are in the village ", FileManager.searchVillageName(level, id), ctx);
+				ChatManager.writeString(Component.translatable("message.yourvillagesnames.you_in_village"), FileManager.searchVillageName(level, id), ctx);
 
 			} else {
-				ChatManager.writeString("You are not in a village", "", ctx);
+				ChatManager.writeString(Component.translatable("message.yourvillagesnames.you_not_in_village"), "", ctx);
 			}
 
 			return Command.SINGLE_SUCCESS;

@@ -14,6 +14,7 @@ import com.sjs395.yourvillagesnames.world.VillageDetector;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -45,7 +46,7 @@ public class SetVillageNameCommand {
 				ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
 
 		if (village == null) {
-			ChatManager.writeError("ERROR: You are not in a village", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.you_not_in_village"), ctx);
 			return 0;
 		}
 
@@ -65,7 +66,7 @@ public class SetVillageNameCommand {
 		String newName = StringArgumentType.getString(ctx, "villageName");
 
 		if (id == null) {
-			ChatManager.writeError("ERROR: No villages found", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.no_villages_found"), ctx);
 			return 0;
 		}
 
@@ -81,7 +82,7 @@ public class SetVillageNameCommand {
 		String name = FileManager.searchVillageName(level, id);
 
 		if (name == null) {
-			ChatManager.writeError("ERROR: Village ID does not exist", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.village_id_not_exist"), ctx);
 			return 0;
 		}
 
@@ -96,17 +97,17 @@ public class SetVillageNameCommand {
 			CommandContext<CommandSourceStack> ctx) {
 		switch (FileManager.renameVillage(level, id, newName)) {
 		case -1:
-			ChatManager.writeError("ERROR: -1", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.-1"), ctx);
 			break;
 		case 0:
-			ChatManager.writeError("ERROR: No file found", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.no_file_found"), ctx);
 			break;
 		case 1:
-			ChatManager.writeError("ERROR: No ID found", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.village_id_not_exist"), ctx);
 			break;
 		case 2:
-			ChatManager.writeStringCopy("Village selected: ", id, ctx);
-			ChatManager.writeString("New name: ", newName, ctx);
+			ChatManager.writeStringCopy(Component.translatable("gui.yourvillagesnames.village_selected"), id, ctx);
+			ChatManager.writeString(Component.translatable("gui.yourvillagesnames.new_name"), newName, ctx);
 			break;
 		}
 

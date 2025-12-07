@@ -15,6 +15,7 @@ import com.sjs395.yourvillagesnames.world.VillageDetector;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -42,15 +43,15 @@ public class VillageDetailsCommand {
 				ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
 
 		if (village == null) {
-			ChatManager.writeError("ERROR: You are not in a village", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.you_not_in_village"), ctx);
 			return 0;
 		}
 
 		String id = village.getX() + "_" + village.getZ();
 		String name = FileManager.searchVillageName(level, id);
 
-		ChatManager.writeStringCopy("ID: ", id, ctx);
-		ChatManager.writeString("Name: ", name, ctx);
+		ChatManager.writeStringCopy(Component.translatable("gui.yourvillagesnames.id"), id, ctx);
+		ChatManager.writeString(Component.translatable("gui.yourvillagesnames.name"), name, ctx);
 
 		return Command.SINGLE_SUCCESS;
 	}
@@ -62,14 +63,14 @@ public class VillageDetailsCommand {
 		String id = FileManager.getNearestVillageId(level, player.blockPosition());
 
 		if (id == null) {
-			ChatManager.writeError("ERROR: No villages found", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.no_villages_found"), ctx);
 			return 0;
 		}
 
 		String name = FileManager.searchVillageName(level, id);
 
-		ChatManager.writeStringCopy("ID: ", id, ctx);
-		ChatManager.writeString("Name: ", name, ctx);
+		ChatManager.writeStringCopy(Component.translatable("gui.yourvillagesnames.id"), id, ctx);
+		ChatManager.writeString(Component.translatable("gui.yourvillagesnames.name"), name, ctx);
 
 		return Command.SINGLE_SUCCESS;
 	}
@@ -79,14 +80,14 @@ public class VillageDetailsCommand {
 		Map<String, String> villages = FileManager.loadAllVillages(level);
 
 		if (villages.isEmpty()) {
-			ChatManager.writeError("ERROR: No villages saved", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.no_villages_saved"), ctx);
 			return 0;
 		}
 
 		for (var entry : villages.entrySet()) {
 			ChatManager.writeLine(ctx);
-			ChatManager.writeStringCopy("ID: ", entry.getKey(), ctx);
-			ChatManager.writeString("Name: ", entry.getValue(), ctx);
+			ChatManager.writeStringCopy(Component.translatable("gui.yourvillagesnames.id"), entry.getKey(), ctx);
+			ChatManager.writeString(Component.translatable("gui.yourvillagesnames.name"), entry.getValue(), ctx);
 		}
 
 		ChatManager.writeLine(ctx);
@@ -100,12 +101,12 @@ public class VillageDetailsCommand {
 		String name = FileManager.searchVillageName(level, id);
 
 		if (name == null) {
-			ChatManager.writeError("ERROR: Village ID does not exist", ctx);
+			ChatManager.writeError(Component.translatable("error.yourvillagesnames.village_id_not_exist"), ctx);
 			return 0;
 		}
 
-		ChatManager.writeStringCopy("ID: ", id, ctx);
-		ChatManager.writeString("Name: ", name, ctx);
+		ChatManager.writeStringCopy(Component.translatable("gui.yourvillagesnames.id"), id, ctx);
+		ChatManager.writeString(Component.translatable("gui.yourvillagesnames.name"), name, ctx);
 
 		return Command.SINGLE_SUCCESS;
 	}

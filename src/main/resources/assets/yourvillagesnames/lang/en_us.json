@@ -1,13 +1,21 @@
 {
   "gui.yourvillagesnames.copy_text": "Click to copy",
-  "block.yourvillagesnames.example_block": "Example Block",
-  "item.yourvillagesnames.example_item": "Example Item",
+  "gui.yourvillagesnames.village_selected": "Village selected",
+  "gui.yourvillagesnames.new_name": "New name",
+  "gui.yourvillagesnames.id": "ID",
+  "gui.yourvillagesnames.name": "Name",
 
-  "yourvillagesnames.configuration.title": "Your Villages Names Configs",
-  "yourvillagesnames.configuration.section.yourvillagesnames.common.toml": "Your Villages Names Configs",
-  "yourvillagesnames.configuration.section.yourvillagesnames.common.toml.title": "Your Villages Names Configs",
-  "yourvillagesnames.configuration.items": "Item List",
-  "yourvillagesnames.configuration.logDirtBlock": "Log Dirt Block",
-  "yourvillagesnames.configuration.magicNumberIntroduction": "Magic Number Text",
-  "yourvillagesnames.configuration.magicNumber": "Magic Number"
+  "message.yourvillagesnames.you_in_village": "You are in the village",
+  "message.yourvillagesnames.you_not_in_village": "You are not in a village",
+  "message.yourvillagesnames.entering": "Entering",
+  "message.yourvillagesnames.leaving": "Leaving",
+  "message.yourvillagesnames.welcome_to": "Welcome to",
+  "message.yourvillagesnames.the_village": "the village",
+
+  "error.yourvillagesnames.you_not_in_village": "ERROR: You are not in a village",
+  "error.yourvillagesnames.no_villages_found": "ERROR: No villages found",
+  "error.yourvillagesnames.village_id_not_exist": "ERROR: Village ID does not exist",
+  "error.yourvillagesnames.-1": "ERROR: -1",
+  "error.yourvillagesnames.no_file_found": "ERROR: No file found",
+  "error.yourvillagesnames.no_villages_saved": "ERROR: No villages saved"
 }

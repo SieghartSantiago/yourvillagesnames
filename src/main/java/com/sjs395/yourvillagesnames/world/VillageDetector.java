@@ -146,7 +146,8 @@ public class VillageDetector {
 
 			List<String> result = splitText(villageName, 15);
 
-			front = front.setMessage(0, Component.literal("Welcome to"));
+			front = front.setMessage(0,
+					Component.literal(Component.translatable("message.yourvillagesnames.welcome_to").getString() + " "));
 
 			for (int i = 0; i < 3; i++) {
 				String line = (i < result.size()) ? result.get(i) : "";
@@ -204,7 +205,8 @@ public class VillageDetector {
 					if (id != null && villageNames.containsKey(id)) {
 						sendTitle(player, false, villageNames.get(id), 500, 2000, 500);
 					} else {
-						sendTitle(player, false, "la aldea", 500, 2000, 500);
+						sendTitle(player, false, Component.translatable("message.yourvillagesnames.the_village").getString(),
+								500, 2000, 500);
 					}
 				}
 			}

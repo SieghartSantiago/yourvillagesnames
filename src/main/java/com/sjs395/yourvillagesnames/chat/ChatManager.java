@@ -1,12 +1,12 @@
 package com.sjs395.yourvillagesnames.chat;
 
 import com.mojang.brigadier.context.CommandContext;
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
 
 public class ChatManager {
 
@@ -19,7 +19,8 @@ public class ChatManager {
 		ctx.getSource().sendSuccess(() -> Component.literal(line), false);
 	}
 
-	public static void writeStringCopy(String txtWhite, String txtGreen, CommandContext<CommandSourceStack> ctx) {
+	public static void writeStringCopy(MutableComponent compWhite, String txtGreen, CommandContext<CommandSourceStack> ctx) {
+		String txtWhite = compWhite.getString() + ": ";
 		ctx.getSource()
 				.sendSuccess(() -> Component.literal(txtWhite)
 						.append(Component.literal(txtGreen)
@@ -30,12 +31,13 @@ public class ChatManager {
 						false);
 	}
 
-	public static void writeString(String txtWhite, String txtOrange, CommandContext<CommandSourceStack> ctx) {
+	public static void writeString(MutableComponent compWhite, String txtOrange, CommandContext<CommandSourceStack> ctx) {
+		String txtWhite = compWhite.getString() + ": ";
 		ctx.getSource().sendSuccess(() -> Component.literal(txtWhite)
 				.append(Component.literal(txtOrange).withStyle(s -> s.withColor(0xFFA500))), false);
 	}
 
-	public static void writeError(String msg, CommandContext<CommandSourceStack> ctx) {
-		ctx.getSource().sendFailure(Component.literal(msg).withStyle(ChatFormatting.RED));
+	public static void writeError(MutableComponent compMsg, CommandContext<CommandSourceStack> ctx) {
+		ctx.getSource().sendFailure(Component.literal(compMsg.getString()).withStyle(ChatFormatting.RED));
 	}
 }
