@@ -9,7 +9,7 @@
   "message.yourvillagesnames.you_not_in_village": "No estás en una aldea",
   "message.yourvillagesnames.entering": "Entrando a",
   "message.yourvillagesnames.leaving": "Saliendo de",
-  "message.yourvillagesnames.welcome_to": "Bienvenido a",
+  "message.yourvillagesnames.welcome_to": "Bienvenido/a a",
   "message.yourvillagesnames.the_village": "la aldea",
 
   "error.yourvillagesnames.you_not_in_village": "ERROR: No estás en una aldea",
