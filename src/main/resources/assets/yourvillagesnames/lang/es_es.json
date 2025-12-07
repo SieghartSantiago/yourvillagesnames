@@ -1,0 +1,21 @@
+{
+  "gui.yourvillagesnames.copy_text": "Clic para copiar",
+  "gui.yourvillagesnames.village_selected": "Aldea seleccionada",
+  "gui.yourvillagesnames.new_name": "Nuevo nombre",
+  "gui.yourvillagesnames.id": "ID",
+  "gui.yourvillagesnames.name": "Nombre",
+
+  "message.yourvillagesnames.you_in_village": "Estás en la aldea",
+  "message.yourvillagesnames.you_not_in_village": "No estás en una aldea",
+  "message.yourvillagesnames.entering": "Entrando a",
+  "message.yourvillagesnames.leaving": "Saliendo de",
+  "message.yourvillagesnames.welcome_to": "Bienvenido/a a",
+  "message.yourvillagesnames.the_village": "la aldea",
+
+  "error.yourvillagesnames.you_not_in_village": "ERROR: No estás en una aldea",
+  "error.yourvillagesnames.no_villages_found": "ERROR: No se encontraron aldeas",
+  "error.yourvillagesnames.village_id_not_exist": "ERROR: El ID de la aldea no existe",
+  "error.yourvillagesnames.-1": "ERROR: -1",
+  "error.yourvillagesnames.no_file_found": "ERROR: No se encontró el archivo",
+  "error.yourvillagesnames.no_villages_saved": "ERROR: No hay aldeas guardadas"
+}
