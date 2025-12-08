@@ -26,16 +26,20 @@ public class CheckVillageCommand {
 
 			BlockPos playerPos = player.blockPosition();
 
-			BlockPos villagePos = VillageDetector.findNearestVillage(level, playerPos, ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
+			BlockPos villagePos = VillageDetector.findNearestVillage(level, playerPos,
+					ModConfigHolder.VILLAGE_SEARCH_RADIUS.get(), ModConfigHolder.VILLAGE_SEARCH_Y_H.get(),
+					ModConfigHolder.VILLAGE_SEARCH_Y_L.get());
 			boolean isInVillage = villagePos != null;
 
 			if (isInVillage) {
 				String id = villagePos.getX() + "_" + villagePos.getZ();
 
-				ChatManager.writeString(Component.translatable("message.yourvillagesnames.you_in_village"), FileManager.searchVillageName(level, id), ctx);
+				ChatManager.writeString(Component.translatable("message.yourvillagesnames.you_in_village"),
+						FileManager.searchVillageName(level, id), ctx);
 
 			} else {
-				ChatManager.writeString(Component.translatable("message.yourvillagesnames.you_not_in_village"), "", ctx);
+				ChatManager.writeString(Component.translatable("message.yourvillagesnames.you_not_in_village"), "",
+						ctx);
 			}
 
 			return Command.SINGLE_SUCCESS;

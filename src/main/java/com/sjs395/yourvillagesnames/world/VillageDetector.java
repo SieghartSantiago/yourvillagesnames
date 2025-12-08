@@ -72,7 +72,7 @@ public class VillageDetector {
 		}
 	}
 
-	public static BlockPos findNearestVillage(ServerLevel level, BlockPos origin, int radius) {
+	public static BlockPos findNearestVillage(ServerLevel level, BlockPos origin, int radius, int yHigher, int yLower) {
 		var structureRegistry = level.registryAccess().registryOrThrow(Registries.STRUCTURE);
 
 		double bestVillageDistance = -1;
@@ -103,7 +103,8 @@ public class VillageDetector {
 
 			double distanceVillage = getDistance2D(villagePos, origin);
 
-			if (distanceVillage <= radius && (distanceVillage <= bestVillageDistance || bestVillageDistance == -1)) {
+			if (distanceVillage <= radius && (distanceVillage <= bestVillageDistance || bestVillageDistance == -1)
+					&& villagePos.getY() + yHigher > origin.getY() && villagePos.getY() - yHigher < origin.getY()) {
 				bestVillageDistance = distanceVillage;
 				bestVillagePos = villagePos;
 			}
@@ -146,8 +147,8 @@ public class VillageDetector {
 
 			List<String> result = splitText(villageName, 15);
 
-			front = front.setMessage(0,
-					Component.literal(Component.translatable("message.yourvillagesnames.welcome_to").getString() + " "));
+			front = front.setMessage(0, Component
+					.literal(Component.translatable("message.yourvillagesnames.welcome_to").getString() + " "));
 
 			for (int i = 0; i < 3; i++) {
 				String line = (i < result.size()) ? result.get(i) : "";
@@ -179,7 +180,8 @@ public class VillageDetector {
 			BlockPos playerPos = player.blockPosition();
 			UUID uuid = player.getUUID();
 
-			BlockPos villagePos = findNearestVillage(level, playerPos, ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
+			BlockPos villagePos = findNearestVillage(level, playerPos, ModConfigHolder.VILLAGE_SEARCH_RADIUS.get(),
+					ModConfigHolder.VILLAGE_SEARCH_Y_H.get(), ModConfigHolder.VILLAGE_SEARCH_Y_L.get());
 			boolean isInVillage = villagePos != null;
 			boolean wasInVillage = playerInVillage.getOrDefault(uuid, false);
 
@@ -205,8 +207,9 @@ public class VillageDetector {
 					if (id != null && villageNames.containsKey(id)) {
 						sendTitle(player, false, villageNames.get(id), 500, 2000, 500);
 					} else {
-						sendTitle(player, false, Component.translatable("message.yourvillagesnames.the_village").getString(),
-								500, 2000, 500);
+						sendTitle(player, false,
+								Component.translatable("message.yourvillagesnames.the_village").getString(), 500, 2000,
+								500);
 					}
 				}
 			}

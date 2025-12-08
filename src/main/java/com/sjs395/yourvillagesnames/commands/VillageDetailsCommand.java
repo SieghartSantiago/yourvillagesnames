@@ -40,7 +40,8 @@ public class VillageDetailsCommand {
 		ServerLevel level = ctx.getSource().getServer().overworld();
 
 		BlockPos village = VillageDetector.findNearestVillage(level, player.blockPosition(),
-				ModConfigHolder.VILLAGE_SEARCH_RADIUS.get());
+				ModConfigHolder.VILLAGE_SEARCH_RADIUS.get(), ModConfigHolder.VILLAGE_SEARCH_Y_H.get(),
+				ModConfigHolder.VILLAGE_SEARCH_Y_L.get());
 
 		if (village == null) {
 			ChatManager.writeError(Component.translatable("error.yourvillagesnames.you_not_in_village"), ctx);

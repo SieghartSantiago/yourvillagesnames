@@ -6,38 +6,31 @@ import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 
 public class ModConfigHolder {
 
-    public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+	public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.ConfigValue<Integer> VILLAGE_SEARCH_RADIUS;
-    public static final ConfigValue<List<? extends Object>> VILLAGE_IDS;
+	public static final ModConfigSpec.ConfigValue<Integer> VILLAGE_SEARCH_RADIUS;
+	public static final ModConfigSpec.ConfigValue<Integer> VILLAGE_SEARCH_Y_H;
+	public static final ModConfigSpec.ConfigValue<Integer> VILLAGE_SEARCH_Y_L;
+	public static final ConfigValue<List<? extends Object>> VILLAGE_IDS;
 
-    public static final ModConfigSpec SPEC;
+	public static final ModConfigSpec SPEC;
 
-    static {
-        BUILDER.push("general");
+	static {
+		BUILDER.push("general");
 
-        VILLAGE_SEARCH_RADIUS =
-                BUILDER.define("detectionDistance", 80);
+		VILLAGE_SEARCH_RADIUS = BUILDER.define("detectionDistance", 80);
 
-        List<String> defaultVillageIds = List.of(
-                "minecraft:village_desert",
-                "minecraft:village_plains",
-                "minecraft:village_savanna",
-                "minecraft:village_snowy",
-                "minecraft:village_taiga"
-        );
+		VILLAGE_SEARCH_Y_H = BUILDER.define("detectionHigherDistance", 10);
+		VILLAGE_SEARCH_Y_L = BUILDER.define("detecionLowerDistance", 10);
 
-        VILLAGE_IDS = BUILDER
-                .comment("Village IDs")
-                .defineList(
-                        "villageIds",
-                        defaultVillageIds,
-                        () -> List.of(),
-                        o -> o instanceof String
-                );
+		List<String> defaultVillageIds = List.of("minecraft:village_desert", "minecraft:village_plains",
+				"minecraft:village_savanna", "minecraft:village_snowy", "minecraft:village_taiga");
 
-        BUILDER.pop();
+		VILLAGE_IDS = BUILDER.comment("Village IDs").defineList("villageIds", defaultVillageIds, () -> List.of(),
+				o -> o instanceof String);
 
-        SPEC = BUILDER.build();
-    }
+		BUILDER.pop();
+
+		SPEC = BUILDER.build();
+	}
 }
